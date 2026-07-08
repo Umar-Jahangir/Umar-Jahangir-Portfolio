@@ -1,7 +1,9 @@
+<!DOCTYPE html>
 <html>
 
 <head>
-    <title>Umar Jahangir</title>
+    <meta charset="UTF-8">
+    <title>My Web Page</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
@@ -654,7 +656,7 @@
             background: var(--accent-dim);
         }
 
-        /* ---------- certifications (horizontal scroll) ---------- */
+        /* ---------- certifications / patents / research (horizontal scroll) ---------- */
         .cert-scroller-wrap {
             position: relative;
         }
@@ -682,7 +684,34 @@
             background: var(--panel);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 22px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: all .2s ease;
+        }
+
+        .cert-card:hover {
+            border-color: rgba(141, 123, 247, 0.4);
+            transform: translateY(-3px);
+        }
+
+        .cert-card .cert-img {
+            height: 120px;
+            background: linear-gradient(135deg, rgba(63, 233, 196, 0.14), rgba(141, 123, 247, 0.14));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-faint);
+            background-size: cover;
+            background-position: center;
+        }
+
+        .cert-card .cert-body {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex: 1;
         }
 
         .cert-card .badge {
@@ -694,19 +723,17 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 14px;
         }
 
         .cert-card h3 {
             font-family: var(--display);
             font-size: 15.5px;
-            margin: 0 0 6px 0;
+            margin: 0;
         }
 
         .cert-card .issuer {
             color: var(--text-dim);
             font-size: 13px;
-            margin-bottom: 14px;
         }
 
         .cert-card a.view-link {
@@ -716,12 +743,7 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-        }
-
-        .proof-links {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
+            margin-top: auto;
         }
 
         .scroll-arrows {
@@ -946,6 +968,7 @@
 </head>
 
 <body>
+
     <div id="root-scope">
         <div id="bg-fx">
             <svg width="560" height="560" viewBox="0 0 560 560" fill="none">
@@ -969,7 +992,7 @@
                 </g>
             </svg>
         </div>
-
+        <!-- Navigation/NavBar............................................................................................................................................................................................................................... -->
         <nav id="navbar">
             <div class="nav-inner">
                 <a class="logo-btn" id="logo-btn" href="#home" aria-label="Home"></a>
@@ -1042,6 +1065,7 @@
                 location: "Pune, India"
             };
 
+            // Education.........................................................................................................................................................................................................................................................................................................................................
             var EDUCATION = [
                 { institution: "Vishwakarma Institute of Technology", degree: "B.Tech in Computer Science and Engineering (IoT, Cybersecurity & Blockchain)", duration: "Aug 2024 – 2028 (Present)", description: "CGPA: 9.09 · Patents: 7 · Research Paper: 1" },
                 { institution: "Shri H. B. Girme College", degree: "12th Grade", duration: "", description: "" },
@@ -1078,18 +1102,21 @@
                 { name: "GPG", category: "Security & Other" }
             ];
 
-            /* Add attachments by putting a file next to this HTML file (e.g. "certs/aws.pdf")
-               and pointing "file" at that relative path, or paste any public URL. Leave "" to omit. */
+            /* Certificates show like a project card: an image on top (a screenshot/thumbnail of
+               the certificate — put it in the certificates/ folder), plus a "View" link that can
+               point to the same image, a hosted PDF, or any URL. */
             var CERTIFICATIONS = [
-                // { name:"AWS Certified Cloud Practitioner", website:"Amazon Web Services", file:"certs/aws.pdf" }
+                // { name:"AWS Certified Cloud Practitioner", issuer:"Amazon Web Services", image:"certificates/aws-cloud-practitioner.png", link:"certificates/aws-cloud-practitioner.pdf" }
             ];
 
+            /* Patents: no image, just a title and a link — e.g. the Google Patents page for it. */
             var PATENTS = [
-                // { title:"MediTrack — Smart Automatic Drug Dispenser", filedProof:"patents/meditrack-filed.pdf", publishedProof:"patents/meditrack-published.pdf", grantedProof:"" }
+                // { title:"MediTrack — Smart Automatic Drug Dispenser", link:"https://patents.google.com/patent/YOUR_PATENT_ID" }
             ];
 
+            /* Research papers: no image, just a title and a link — e.g. the IEEE Xplore page for it. */
             var RESEARCH = [
-                // { title:"Your research paper title", file:"research/paper1.pdf" }
+                // { title:"Your research paper title", link:"https://ieeexplore.ieee.org/document/YOUR_DOC_ID" }
             ];
 
             var PROJECTS = [
@@ -1225,10 +1252,12 @@
             function renderCertifications(list) {
                 var cards = (list && list.length) ? list.map(function (c) {
                     return '<div class="cert-card">' +
-                        '<div class="badge">' + ICONS.award + '</div>' +
+                        '<div class="cert-img"' + (c.image ? ' style="background-image:url(\'' + escapeHtml(c.image) + '\')"' : '') + '>' + (c.image ? '' : ICONS.award) + '</div>' +
+                        '<div class="cert-body">' +
                         '<h3>' + escapeHtml(c.name) + '</h3>' +
-                        '<div class="issuer">' + escapeHtml(c.website) + '</div>' +
-                        (c.file ? '<a class="view-link" href="' + escapeHtml(c.file) + '" target="_blank" rel="noopener">' + ICONS.paperclip + ' View certificate</a>' : '') +
+                        (c.issuer ? '<div class="issuer">' + escapeHtml(c.issuer) + '</div>' : '') +
+                        (c.link ? '<a class="view-link" href="' + escapeHtml(c.link) + '" target="_blank" rel="noopener">' + ICONS.paperclip + ' View certificate</a>' : '') +
+                        '</div>' +
                         '</div>';
                 }).join('') : '<div class="empty-note">// no certifications added yet — edit the CERTIFICATIONS array in the code</div>';
 
@@ -1244,14 +1273,12 @@
 
             function renderPatents(list) {
                 var cards = (list && list.length) ? list.map(function (p) {
-                    var proofs = [];
-                    if (p.filedProof) proofs.push('<a class="view-link" href="' + escapeHtml(p.filedProof) + '" target="_blank" rel="noopener">' + ICONS.paperclip + ' Filed proof</a>');
-                    if (p.publishedProof) proofs.push('<a class="view-link" href="' + escapeHtml(p.publishedProof) + '" target="_blank" rel="noopener">' + ICONS.paperclip + ' Published proof</a>');
-                    if (p.grantedProof) proofs.push('<a class="view-link" href="' + escapeHtml(p.grantedProof) + '" target="_blank" rel="noopener">' + ICONS.paperclip + ' Granted proof</a>');
                     return '<div class="cert-card">' +
+                        '<div class="cert-body">' +
                         '<div class="badge">' + ICONS.award + '</div>' +
                         '<h3>' + escapeHtml(p.title) + '</h3>' +
-                        '<div class="proof-links">' + proofs.join('') + '</div>' +
+                        (p.link ? '<a class="view-link" href="' + escapeHtml(p.link) + '" target="_blank" rel="noopener">' + ICONS.ext + ' View patent</a>' : '') +
+                        '</div>' +
                         '</div>';
                 }).join('') : '<div class="empty-note">// no patents added yet — edit the PATENTS array in the code</div>';
 
@@ -1265,9 +1292,11 @@
             function renderResearch(list) {
                 var cards = (list && list.length) ? list.map(function (r) {
                     return '<div class="cert-card">' +
+                        '<div class="cert-body">' +
                         '<div class="badge">' + ICONS.award + '</div>' +
                         '<h3>' + escapeHtml(r.title) + '</h3>' +
-                        (r.file ? '<a class="view-link" href="' + escapeHtml(r.file) + '" target="_blank" rel="noopener">' + ICONS.paperclip + ' View paper</a>' : '') +
+                        (r.link ? '<a class="view-link" href="' + escapeHtml(r.link) + '" target="_blank" rel="noopener">' + ICONS.ext + ' View paper</a>' : '') +
+                        '</div>' +
                         '</div>';
                 }).join('') : '<div class="empty-note">// no research papers added yet — edit the RESEARCH array in the code</div>';
 
@@ -1443,4 +1472,4 @@
     </script>
 </body>
 
-</html
+</html>
