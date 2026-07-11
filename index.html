@@ -909,6 +909,89 @@
             gap: 6px;
         }
 
+        /* ---------- achievements ---------- */
+        .achv-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        @media (max-width:980px) {
+            .achv-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width:640px) {
+            .achv-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .achv-card {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            transition: all .2s ease;
+        }
+
+        .achv-card:hover {
+            border-color: rgba(224, 164, 88, 0.4);
+            transform: translateY(-3px);
+        }
+
+        .achv-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(224, 164, 88, 0.14);
+            color: #e0a458;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .achv-title {
+            font-family: var(--display);
+            font-size: 17px;
+            margin: 0;
+        }
+
+        .achv-subtitle {
+            font-family: var(--sans);
+            font-weight: 600;
+            font-size: 13.5px;
+            color: #e0a458;
+        }
+
+        .achv-meta {
+            font-family: var(--mono);
+            font-size: 12px;
+            color: var(--text-faint);
+            margin-bottom: 6px;
+        }
+
+        .achv-desc {
+            color: var(--text-dim);
+            font-size: 14px;
+            line-height: 1.55;
+        }
+
+        .achv-link {
+            font-family: var(--mono);
+            font-size: 12.5px;
+            color: var(--accent);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 8px;
+        }
+
         /* ---------- projects ---------- */
         .proj-grid {
             display: grid;
@@ -1191,7 +1274,8 @@
                 paperclip: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg>',
                 ext: '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>',
                 trophy: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8"></path><path d="M12 17v4"></path><path d="M7 4h10v5a5 5 0 0 1-10 0V4z"></path><path d="M7 5H4a1 1 0 0 0-1 1v1a4 4 0 0 0 4 4"></path><path d="M17 5h3a1 1 0 0 1 1 1v1a4 4 0 0 1-4 4"></path></svg>',
-                filetext: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><line x1="10" y1="9" x2="8" y2="9"></line></svg>'
+                filetext: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><line x1="10" y1="9" x2="8" y2="9"></line></svg>',
+                target: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>'
             };
 
 
@@ -1263,8 +1347,36 @@
             /* Awards, wins, rankings, scholarships, selections, etc. `link` is optional —
                point it at a certificate, article, or leaderboard if you have one. */
             var ACHIEVEMENTS = [
-                { title: "CCNA: Introduction to Networks — Badge", description: "Cisco Networking Academy digital badge.", link: "Achievements/CCNA Introduction to Networks Badge.jpeg" },
-                { title: "CCNA: Switching, Routing, and Wireless Essentials — Badge", description: "Cisco Networking Academy digital badge.", link: "Achievements/CCNA Switching, Routing, and Wireless Essentials Badge.jpeg" }
+                {
+                    icon: "target",
+                    title: "Top 10 Finalist",
+                    subtitle: "MIT ADT AI Grand Challenge",
+                    meta: "MIT ADT University, 2026",
+                    description: "Reached the top 10 with an explainable AI system for loan approval prediction."
+                },
+                {
+                    icon: "filetext",
+                    title: "6 Patents Filed",
+                    subtitle: "Republic of South Africa And India",
+                    meta: "2025–2026",
+                    description: ""
+                },
+                {
+                    icon: "award",
+                    title: "CCNA: Introduction to Networks",
+                    subtitle: "Cisco Networking Academy",
+                    meta: "Badge",
+                    description: "Earned a digital badge for foundational networking concepts.",
+                    link: "Achievements/CCNA Introduction to Networks Badge.jpeg"
+                },
+                {
+                    icon: "award",
+                    title: "CCNA: Switching, Routing, and Wireless Essentials",
+                    subtitle: "Cisco Networking Academy",
+                    meta: "Badge",
+                    description: "Earned a digital badge for switching, routing, and wireless networking.",
+                    link: "Achievements/CCNA Switching, Routing, and Wireless Essentials Badge.jpeg"
+                }
             ];
 
             // Certifications.........................................................................................................................................................................................................................................................................................................................................
@@ -1495,23 +1607,20 @@
 
             function renderAchievements(list) {
                 var cards = (list && list.length) ? list.map(function (a) {
-                    return '<div class="cert-card">' +
-                        '<div class="cert-body">' +
-                        '<div class="badge">' + ICONS.award + '</div>' +
-                        '<h3>' + escapeHtml(a.title) + '</h3>' +
-                        (a.description ? '<div class="issuer">' + escapeHtml(a.description) + '</div>' : '') +
-                        (a.link ? '<a class="view-link" href="' + escapeHtml(a.link) + '" target="_blank" rel="noopener">' + ICONS.paperclip + ' View</a>' : '') +
-                        '</div>' +
+                    return '<div class="achv-card">' +
+                        '<div class="achv-icon">' + (ICONS[a.icon] || ICONS.award) + '</div>' +
+                        '<h3 class="achv-title">' + escapeHtml(a.title) + '</h3>' +
+                        (a.subtitle ? '<div class="achv-subtitle">' + escapeHtml(a.subtitle) + '</div>' : '') +
+                        (a.meta ? '<div class="achv-meta">' + escapeHtml(a.meta) + '</div>' : '') +
+                        (a.description ? '<div class="achv-desc">' + escapeHtml(a.description) + '</div>' : '') +
+                        (a.link ? '<a class="achv-link" href="' + encodeURI(a.link) + '" target="_blank" rel="noopener">' + ICONS.paperclip + ' View</a>' : '') +
                         '</div>';
                 }).join('') : '<div class="empty-note">// no achievements added yet — edit the ACHIEVEMENTS array in the code</div>';
 
                 return '<section class="section" id="achievements">' +
                     '<div class="eyebrow">Achievements</div>' +
                     '<h2 class="section-title">Wins &amp; <span>Recognition</span></h2>' +
-                    '<div class="cert-scroller-wrap">' +
-                    '<div class="cert-scroller" id="achv-scroller">' + cards + '</div>' +
-                    (list && list.length > 2 ? '<div class="scroll-arrows"><button class="scroll-arrow" id="achv-left">&#8249;</button><button class="scroll-arrow" id="achv-right">&#8250;</button></div>' : '') +
-                    '</div>' +
+                    '<div class="achv-grid">' + cards + '</div>' +
                     '</section>';
             }
 
@@ -1633,12 +1742,6 @@
                 var right = document.getElementById('cert-right');
                 if (left) left.addEventListener('click', function () { scroller.scrollBy({ left: -300, behavior: 'smooth' }); });
                 if (right) right.addEventListener('click', function () { scroller.scrollBy({ left: 300, behavior: 'smooth' }); });
-
-                var achvScroller = document.getElementById('achv-scroller');
-                var achvLeft = document.getElementById('achv-left');
-                var achvRight = document.getElementById('achv-right');
-                if (achvLeft) achvLeft.addEventListener('click', function () { achvScroller.scrollBy({ left: -300, behavior: 'smooth' }); });
-                if (achvRight) achvRight.addEventListener('click', function () { achvScroller.scrollBy({ left: 300, behavior: 'smooth' }); });
 
                 var form = document.getElementById('contact-form');
                 if (form) {
