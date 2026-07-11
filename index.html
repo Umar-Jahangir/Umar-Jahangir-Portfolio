@@ -1031,63 +1031,130 @@
         .proj-card {
             background: var(--panel);
             border: 1px solid var(--border);
+            border-top: 3px solid var(--accent);
             border-radius: var(--radius);
-            overflow: hidden;
+            padding: 24px;
             display: flex;
             flex-direction: column;
+            gap: 10px;
             transition: all .2s ease;
         }
 
         .proj-card:hover {
-            border-color: rgba(141, 123, 247, 0.4);
+            border-color: rgba(63, 233, 196, 0.4);
+            border-top-color: var(--accent);
             transform: translateY(-3px);
         }
 
-        .proj-img {
-            height: 140px;
-            background: linear-gradient(135deg, rgba(63, 233, 196, 0.14), rgba(141, 123, 247, 0.14));
+        .proj-top-row {
             display: flex;
-            align-items: center;
-            justify-content: center;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+            min-height: 24px;
+        }
+
+        .proj-status-pill {
+            display: inline-flex;
+            padding: 5px 12px;
+            border-radius: 999px;
+            border: 1px solid rgba(63, 233, 196, 0.4);
+            color: var(--accent);
+            font-family: var(--mono);
+            font-size: 11.5px;
+            white-space: nowrap;
+        }
+
+        .proj-date {
+            font-family: var(--mono);
+            font-size: 12px;
             color: var(--text-faint);
-            background-size: cover;
-            background-position: center;
+            white-space: nowrap;
+            padding-top: 4px;
         }
 
-        .proj-body {
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            flex: 1;
-        }
-
-        .proj-body h3 {
+        .proj-title2 {
             font-family: var(--display);
-            font-size: 16px;
-            margin: 0;
+            font-size: 18px;
+            margin: 2px 0 0;
         }
 
-        .proj-body p {
+        .proj-subtitle {
+            font-family: var(--mono);
+            font-size: 12.5px;
+            color: var(--accent);
+        }
+
+        .proj-desc2 {
             color: var(--text-dim);
             font-size: 13.5px;
-            margin: 0;
-            flex: 1;
+            line-height: 1.6;
+            margin: 4px 0 0;
         }
 
-        .proj-actions {
+        .proj-highlights {
+            list-style: none;
+            padding: 0;
+            margin: 2px 0 0;
             display: flex;
-            gap: 10px;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .proj-highlights li {
+            font-size: 13px;
+            color: var(--text-dim);
+            padding-left: 14px;
+            position: relative;
+        }
+
+        .proj-highlights li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 7px;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: #e0a458;
+        }
+
+        .proj-tags2 {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
             margin-top: 4px;
         }
 
-        .proj-actions a {
+        .proj-tag2 {
+            font-family: var(--mono);
+            font-size: 11.5px;
+            padding: 5px 10px;
+            border-radius: 7px;
+            background: var(--panel-2);
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+        }
+
+        .proj-footer {
+            border-top: 1px solid var(--border);
+            margin-top: 10px;
+            padding-top: 12px;
+            display: flex;
+            gap: 16px;
+        }
+
+        .proj-footer a {
             font-family: var(--mono);
             font-size: 12.5px;
-            color: var(--accent-2);
+            color: var(--text-dim);
             display: inline-flex;
             align-items: center;
             gap: 6px;
+        }
+
+        .proj-footer a:hover {
+            color: var(--accent);
         }
 
         /* ---------- contact ---------- */
@@ -1485,12 +1552,79 @@
 
             // Projects.........................................................................................................................................................................................................................................................................................................................................
             var PROJECTS = [
-                { name: "Decentralized Ticketing Platform", githubLink: "https://github.com/Umar-Jahangir", description: "Blockchain-based ticket booking platform using Ethereum smart contracts (ERC-20 & ERC-721) with wallet-based role access via Hardhat and React.", image: "" },
-                { name: "MediTrack — Smart Automatic Drug Dispenser", githubLink: "https://github.com/Umar-Jahangir", description: "Arduino Uno-controlled pill + liquid dispenser with AI-based ingestion verification via a privacy-cap camera. Indian Patent Published.", image: "" },
-                { name: "Retail Causal AI", githubLink: "https://github.com/Umar-Jahangir", description: "GNN-Causal-RL retail analytics platform: demand forecasting, RL/PPO inventory optimization, and causal promotion analysis. Patent Filed.", image: "" },
-                { name: "InnoVelty AI — Idea Novelty Analyzer", githubLink: "https://github.com/Umar-Jahangir", description: "AI tool that evaluates idea novelty against patents and research papers using LLMs, with personalized improvement suggestions.", image: "" },
-                { name: "GitGrade — AI Coding Mentor", githubLink: "https://github.com/Umar-Jahangir", description: "Evaluates public GitHub repos to generate a performance score, summary, and personalised improvement roadmap.", image: "" },
-                { name: "Student-Pal — Python Productivity Suite", githubLink: "https://github.com/Umar-Jahangir", description: "AI Flashcard Generator, MCQ Generator, CGPA Calculator, and Physics Solver built with Python and Streamlit.", image: "" }
+                {
+                    name: "CREDIT — AI-Assisted Alternative Credit Underwriting",
+                    status: "Top 10 Finalist",
+                    subtitle: "Digital Loan Underwriting for Thin-File Borrowers",
+                    description: "ML models to predict loan approval with extensive preprocessing and feature engineering, applying explainable AI to interpret the key drivers behind each decision.",
+                    highlights: [
+                        "It's a platform that scores loan applicants with thin or no credit history using rule-based pre-screening, ML risk scoring, and policy guardrails, backed by an admin review console and an optional LLM copilot.",
+                        "Random Forest vs. XGBoost comparison for prediction accuracy",
+                        "Top 10, MIT ADT AI Grand Challenge",
+                        "OCR-based identity document verification via AWS Textract",
+                        "Python/XGBoost risk scoring bridged into a Node.js backend",
+                        "Ollama-hosted LLM copilot for analyst Q&A"
+                    ],
+                    tags: ["React", "TypeScript", "Node.js", "MongoDB", "Python", "XGBoost", "Random Forest", "Scikit-learn"],
+                    githubLink: "https://github.com/Umar-Jahangir/Credit-Scoring"
+                },
+                {
+                    name: "Retail Causal AI",
+                    subtitle: "Multi-Stakeholder GNN-Causal-RL Framework for Demand Forecasting & Inventory Optimization",
+                    description: "An integrated retail analytics platform combining demand forecasting, reinforcement-learning-driven inventory optimization, and causal inference to quantify the true impact of promotions on demand. Patent application in preparation.",
+                    highlights: [
+                        "PPO-based reinforcement learning for adaptive inventory decisions",
+                        "Causal impact analysis via Propensity Score Matching, DiD, and Double ML",
+                        "SHAP explainability with PSI-based drift monitoring"
+                    ],
+                    tags: ["Python", "TypeScript", "React", "Reinforcement Learning", "Causal Inference", "SHAP"],
+                    githubLink: "https://github.com/Umar-Jahangir/Retail-Causal-AI"
+                },
+                {
+                    name: "FraudShield — Banking Fraud Detection System",
+                    subtitle: "Real-Time Rule-Based Fraud Scoring for Banking Transactions (DBMS Course Project)",
+                    description: "A full-stack banking fraud detection system with a MySQL-triggered risk-scoring engine that flags suspicious transactions in real time based on transaction velocity, device, and location signals.",
+                    highlights: [
+                        "Weighted risk-scoring rules (amount, velocity, device, location) via SQL triggers",
+                        "JWT-secured admin dashboard for alert review, blacklisting, and account freezes"
+                    ],
+                    tags: ["DBMS", "Node.js", "Express.js", "MySQL", "JWT Auth", "Bootstrap"],
+                    githubLink: "https://github.com/Umar-Jahangir/FraudShield--Banking-Fraud-Detection-System"
+                },
+                {
+                    name: "FairTrust AI — Bias Auditing for Hiring Algorithms",
+                    subtitle: "Ethical AI Auditing Across 7 Fairness Dimensions (Team Project, PCCOE Hackathon 4.0)",
+                    description: "A hackathon-built auditing framework that evaluates hiring models for bias before deployment, producing a weighted Ethical Score and role-based compliance reports for developers, regulators, and candidates.",
+                    highlights: [
+                        "7 fairness dimensions incl. demographic parity, calibration, and intersectional bias",
+                        "SHAP-based explainability with EU AI Act / GDPR-ready certification reports"
+                    ],
+                    tags: ["Python", "Flask", "SHAP", "Fairlearn", "XGBoost"],
+                    githubLink: "https://github.com/Umar-Jahangir/FairTrust-AI"
+                },
+                { 
+                    name: "Decentralized Ticketing Platform", 
+                    githubLink: "https://github.com/Umar-Jahangir/Decentralized-Ticketing-Platform", 
+                    description: "Blockchain-based ticket booking platform using Ethereum smart contracts (ERC-20 & ERC-721) with wallet-based role access via Hardhat and React.", tags: ["Solidity", "Ethereum", "Hardhat", "React"] },
+                { 
+                    name: "MediTrack — Smart Automatic Drug Dispenser", 
+                    githubLink: "https://github.com/Umar-Jahangir/MediTrack--Smart-Automatic-Drug-Dispenser", 
+                    description: "Arduino Uno-controlled pill + liquid dispenser with AI-based ingestion verification via a privacy-cap camera. Indian Patent Published.", tags: ["Arduino", "Computer Vision", "Edge AI"] },
+                { 
+                    status: "Patent Filed",
+                    name: "InnoVelty AI — Idea Novelty Analyzer", 
+                    githubLink: "https://github.com/Umar-Jahangir/InnoVelty-AI", 
+                    description: "AI tool that evaluates idea novelty against patents and research papers using LLMs, with personalized improvement suggestions.", 
+                    highlights: [
+                        "Semantic search with vector embeddings for prior art retrieval",
+                        "LLM-based novelty scoring and improvement suggestions",
+                        "Patent and research paper analysis for idea validation",
+                        "Also Give top 10 matched patents and research papers with links to their sources which reduces most of the users time in searching all those refrences",
+                        "It Also has an AI chat bot for how to enhance the users Idea"
+                    ],
+                    tags: ["LLM", "NLP", "Semantic Search"] },
+                { name: "GitGrade — AI Coding Mentor", githubLink: "https://github.com/Umar-Jahangir", description: "Evaluates public GitHub repos to generate a performance score, summary, and personalised improvement roadmap.", tags: ["LLM", "GitHub API"] },
+                { name: "Student-Pal — Python Productivity Suite", githubLink: "https://github.com/Umar-Jahangir", description: "AI Flashcard Generator, MCQ Generator, CGPA Calculator, and Physics Solver built with Python and Streamlit.", tags: ["Python", "Streamlit"] }
             ];
 
             /* =====================================================================
@@ -1706,15 +1840,22 @@
 
             function renderProjects(list) {
                 var cards = (list && list.length) ? list.map(function (p) {
+                    var topRow = (p.status || p.dateRange) ?
+                        '<div class="proj-top-row">' +
+                        (p.status ? '<span class="proj-status-pill">' + escapeHtml(p.status) + '</span>' : '<span></span>') +
+                        (p.dateRange ? '<span class="proj-date">' + escapeHtml(p.dateRange) + '</span>' : '') +
+                        '</div>' : '';
+                    var highlights = (p.highlights && p.highlights.length) ? '<ul class="proj-highlights">' + p.highlights.map(function (h) { return '<li>' + escapeHtml(h) + '</li>'; }).join('') + '</ul>' : '';
+                    var tags = (p.tags && p.tags.length) ? '<div class="proj-tags2">' + p.tags.map(function (t) { return '<span class="proj-tag2">' + escapeHtml(t) + '</span>'; }).join('') + '</div>' : '';
+                    var footer = p.githubLink ? '<div class="proj-footer"><a href="' + escapeHtml(p.githubLink) + '" target="_blank" rel="noopener">' + ICONS.code + ' GitHub</a></div>' : '';
                     return '<div class="proj-card">' +
-                        '<div class="proj-body">' +
-                        '<div class="badge">' + ICONS.folder + '</div>' +
-                        '<h3>' + escapeHtml(p.name) + '</h3>' +
-                        (p.description ? '<p>' + escapeHtml(p.description) + '</p>' : '') +
-                        '<div class="proj-actions">' +
-                        (p.githubLink ? '<a href="' + escapeHtml(p.githubLink) + '" target="_blank" rel="noopener">' + ICONS.code + ' Code</a>' : '') +
-                        '</div>' +
-                        '</div>' +
+                        topRow +
+                        '<h3 class="proj-title2">' + escapeHtml(p.name) + '</h3>' +
+                        (p.subtitle ? '<div class="proj-subtitle">' + escapeHtml(p.subtitle) + '</div>' : '') +
+                        (p.description ? '<p class="proj-desc2">' + escapeHtml(p.description) + '</p>' : '') +
+                        highlights +
+                        tags +
+                        footer +
                         '</div>';
                 }).join('') : '<div class="empty-note">// no projects added yet</div>';
 
