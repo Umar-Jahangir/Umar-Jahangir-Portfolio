@@ -682,9 +682,12 @@
         }
 
         .skill-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             font-family: var(--mono);
             font-size: 13px;
-            padding: 7px 14px;
+            padding: 6px 14px 6px 8px;
             border-radius: 8px;
             background: color-mix(in srgb, var(--skill-color, var(--accent)) 10%, var(--panel-2));
             border: 1px solid color-mix(in srgb, var(--skill-color, var(--accent)) 40%, var(--border));
@@ -696,6 +699,26 @@
             border-color: var(--skill-color, var(--accent));
             background: color-mix(in srgb, var(--skill-color, var(--accent)) 20%, var(--panel-2));
             transform: translateY(-1px);
+        }
+
+        .skill-icon-badge {
+            width: 20px;
+            height: 20px;
+            border-radius: 6px;
+            background: #fff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            padding: 3px;
+            box-sizing: border-box;
+        }
+
+        .skill-icon-badge img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
         }
 
         /* ---------- certifications / patents / research (horizontal scroll) ---------- */
@@ -1121,27 +1144,32 @@
 
             // Skills.........................................................................................................................................................................................................................................................................................................................................
             var SKILLS = [
-                { name: "Python", category: "Languages" }, { name: "Java", category: "Languages" },
-                { name: "JavaScript", category: "Languages" }, { name: "TypeScript", category: "Languages" },
-                { name: "C++", category: "Languages" }, { name: "C", category: "Languages" },
-                { name: "Solidity", category: "Languages" },
-                { name: "HTML", category: "Web" }, { name: "CSS", category: "Web" },
-                { name: "Bootstrap", category: "Web" }, { name: "jQuery", category: "Web" }, { name: "React", category: "Web" }, { name: "Next.js", category: "Web" }, { name: "Tailwind CSS", category: "Web" },
-                { name: "Streamlit", category: "Libraries & Tools" }, { name: "TensorFlow", category: "Libraries & Tools" },
-                { name: "OpenCV", category: "Libraries & Tools" }, { name: "Mediapipe", category: "Libraries & Tools" },
-                { name: "SpaCy", category: "Libraries & Tools" }, { name: "NumPy", category: "Libraries & Tools" },
-                { name: "Pandas", category: "Libraries & Tools" }, { name: "Matplotlib", category: "Libraries & Tools" },
-                { name: "Git", category: "Libraries & Tools" }, { name: "GitHub", category: "Libraries & Tools" },
-                { name: "MySQL", category: "Databases" }, { name: "MongoDB", category: "Databases" }, { name: "PostgreSQL", category: "Databases" },
-                { name: "Gemini API", category: "AI / ML" }, { name: "AssemblyAI", category: "AI / ML" },
-                { name: "Arduino", category: "Security & Other" }, { name: "Raspberry Pi", category: "Security & Other" },
-                { name: "Figma", category: "Security & Other" }, { name: "Power BI", category: "Security & Other" },
-                { name: "Looker", category: "Security & Other" }, { name: "Excel", category: "Security & Other" },
+                { name: "Python", category: "Languages", icon: "python" }, { name: "Java", category: "Languages", icon: "java" },
+                { name: "JavaScript", category: "Languages", icon: "javascript" }, { name: "TypeScript", category: "Languages", icon: "typescript" },
+                { name: "C++", category: "Languages", icon: "cplusplus" }, { name: "C", category: "Languages" },
+                { name: "Solidity", category: "Languages", icon: "solidity" },
+                { name: "HTML", category: "Frontend", icon: "html5" }, { name: "CSS", category: "Frontend", icon: "css3" },
+                { name: "Bootstrap", category: "Frontend", icon: "bootstrap" }, { name: "jQuery", category: "Frontend", icon: "jquery" },
+                { name: "React", category: "Frontend", icon: "react" }, { name: "Next.js", category: "Frontend", icon: "nextdotjs" },
+                { name: "Tailwind CSS", category: "Frontend", icon: "tailwindcss" },
+                { name: "Node.js", category: "Backend", icon: "nodedotjs" }, { name: "Express.js", category: "Backend", icon: "express" },
+                { name: "Flask", category: "Backend", icon: "flask" }, { name: "FastAPI", category: "Backend", icon: "fastapi" },
+                { name: "REST APIs", category: "Backend" }, { name: "JWT Auth", category: "Backend", icon: "jsonwebtokens" },
+                { name: "Streamlit", category: "Libraries & Tools", icon: "streamlit" }, { name: "TensorFlow", category: "Libraries & Tools", icon: "tensorflow" },
+                { name: "OpenCV", category: "Libraries & Tools", icon: "opencv" }, { name: "Mediapipe", category: "Libraries & Tools" },
+                { name: "SpaCy", category: "Libraries & Tools", icon: "spacy" }, { name: "NumPy", category: "Libraries & Tools", icon: "numpy" },
+                { name: "Pandas", category: "Libraries & Tools", icon: "pandas" }, { name: "Matplotlib", category: "Libraries & Tools", icon: "matplotlib" },
+                { name: "Git", category: "Libraries & Tools", icon: "git" }, { name: "GitHub", category: "Libraries & Tools", icon: "github" },
+                { name: "MySQL", category: "Databases", icon: "mysql" }, { name: "MongoDB", category: "Databases", icon: "mongodb" }, { name: "PostgreSQL", category: "Databases", icon: "postgresql" },
+                { name: "Gemini API", category: "AI / ML", icon: "googlegemini" }, { name: "AssemblyAI", category: "AI / ML" },
+                { name: "Arduino", category: "Security & Other", icon: "arduino" }, { name: "Raspberry Pi", category: "Security & Other", icon: "raspberrypi" },
+                { name: "Figma", category: "Security & Other", icon: "figma" }, { name: "Power BI", category: "Security & Other", icon: "powerbi" },
+                { name: "Looker", category: "Security & Other", icon: "looker" }, { name: "Excel", category: "Security & Other", icon: "microsoftexcel" },
                 { name: "Cisco Packet Tracer", category: "Security & Other" }, { name: "WEKA", category: "Security & Other" },
-                { name: "Wireshark", category: "Security & Other" }, { name: "Nmap", category: "Security & Other" },
+                { name: "Wireshark", category: "Security & Other", icon: "wireshark" }, { name: "Nmap", category: "Security & Other" },
                 { name: "John The Ripper", category: "Security & Other" }, { name: "Hydra", category: "Security & Other" },
-                { name: "hashcat", category: "Security & Other" }, { name: "OWASP ZAP", category: "Security & Other" },
-                { name: "GPG", category: "Security & Other" }
+                { name: "hashcat", category: "Security & Other" }, { name: "OWASP ZAP", category: "Security & Other", icon: "owasp" },
+                { name: "GPG", category: "Security & Other", icon: "gnuprivacyguard" }
             ];
 
             // Achievements.........................................................................................................................................................................................................................................................................................................................................
@@ -1307,13 +1335,16 @@
                 (list || []).forEach(function (s) {
                     var cat = s.category || 'Other';
                     if (!groups[cat]) groups[cat] = [];
-                    groups[cat].push(s.name);
+                    groups[cat].push(s);
                 });
                 var keys = Object.keys(groups);
                 var html = keys.length ? keys.map(function (cat, i) {
                     var color = SKILL_COLORS[i % SKILL_COLORS.length];
                     return '<div class="skill-card" style="--skill-color:' + color + '"><div class="skill-card-head"><span class="skill-dot"></span>' + escapeHtml(cat) + '</div><div class="skill-tags">' +
-                        groups[cat].map(function (n) { return '<span class="skill-tag">' + escapeHtml(n) + '</span>'; }).join('') +
+                        groups[cat].map(function (s) {
+                            var badge = s.icon ? '<span class="skill-icon-badge"><img src="https://cdn.simpleicons.org/' + encodeURIComponent(s.icon) + '" alt="" loading="lazy" onerror="this.closest(\'.skill-icon-badge\').style.display=\'none\'" /></span>' : '';
+                            return '<span class="skill-tag">' + badge + escapeHtml(s.name) + '</span>';
+                        }).join('') +
                         '</div></div>';
                 }).join('') : '<div class="empty-note">// no skills added yet</div>';
 
