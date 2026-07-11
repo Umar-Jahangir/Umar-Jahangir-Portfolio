@@ -823,6 +823,95 @@
             border-color: var(--accent);
         }
 
+        /* ---------- patents ---------- */
+        .patents-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        @media (max-width:800px) {
+            .patents-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .patent-card {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            transition: all .2s ease;
+        }
+
+        .patent-card:hover {
+            border-color: rgba(63, 233, 196, 0.4);
+            transform: translateY(-3px);
+        }
+
+        .patent-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--mono);
+            font-size: 11.5px;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            color: #e0a458;
+        }
+
+        .patent-card.is-published .patent-status {
+            color: var(--accent);
+        }
+
+        .patent-title {
+            font-family: var(--display);
+            font-size: 17px;
+            line-height: 1.4;
+            margin: 0;
+        }
+
+        .patent-meta {
+            color: var(--text-dim);
+            font-size: 13px;
+        }
+
+        .patent-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .patent-tag {
+            font-family: var(--mono);
+            font-size: 12px;
+            padding: 5px 11px;
+            border-radius: 7px;
+            background: var(--panel-2);
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+        }
+
+        .patent-links {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+            margin-top: auto;
+            padding-top: 4px;
+        }
+
+        .patent-links a {
+            font-family: var(--mono);
+            font-size: 12.5px;
+            color: var(--accent);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
         /* ---------- projects ---------- */
         .proj-grid {
             display: grid;
@@ -1104,7 +1193,8 @@
                 search: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
                 paperclip: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg>',
                 ext: '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>',
-                trophy: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8"></path><path d="M12 17v4"></path><path d="M7 4h10v5a5 5 0 0 1-10 0V4z"></path><path d="M7 5H4a1 1 0 0 0-1 1v1a4 4 0 0 0 4 4"></path><path d="M17 5h3a1 1 0 0 1 1 1v1a4 4 0 0 1-4 4"></path></svg>'
+                trophy: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8"></path><path d="M12 17v4"></path><path d="M7 4h10v5a5 5 0 0 1-10 0V4z"></path><path d="M7 5H4a1 1 0 0 0-1 1v1a4 4 0 0 0 4 4"></path><path d="M17 5h3a1 1 0 0 1 1 1v1a4 4 0 0 1-4 4"></path></svg>',
+                filetext: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><line x1="10" y1="9" x2="8" y2="9"></line></svg>'
             };
 
 
@@ -1168,7 +1258,7 @@
                 { name: "Cisco Packet Tracer", category: "Security & Other" }, { name: "WEKA", category: "Security & Other" },
                 { name: "Wireshark", category: "Security & Other", icon: "wireshark" }, { name: "Nmap", category: "Security & Other" },
                 { name: "John The Ripper", category: "Security & Other" }, { name: "Hydra", category: "Security & Other" },
-                { name: "hashcat", category: "Security & Other" }, { name: "Cisco Packet Tracer", category: "Security & Other", icon: "cisco" }, { name: "OWASP ZAP", category: "Security & Other", icon: "owasp" },
+                { name: "hashcat", category: "Security & Other" }, { name: "OWASP ZAP", category: "Security & Other", icon: "owasp" },
                 { name: "GPG", category: "Security & Other", icon: "gnuprivacyguard" }
             ];
 
@@ -1176,7 +1266,8 @@
             /* Awards, wins, rankings, scholarships, selections, etc. `link` is optional —
                point it at a certificate, article, or leaderboard if you have one. */
             var ACHIEVEMENTS = [
-                // { title:"1st Place — XYZ Hackathon", description:"Built a working prototype in 24 hours among 300+ teams.", link:"https://example.com" }
+                { title: "CCNA: Introduction to Networks — Badge", description: "Cisco Networking Academy digital badge.", link: "Achievements/CCNA Introduction to Networks Badge.jpeg" },
+                { title: "CCNA: Switching, Routing, and Wireless Essentials — Badge", description: "Cisco Networking Academy digital badge.", link: "Achievements/CCNA Switching, Routing, and Wireless Essentials Badge.jpeg" }
             ];
 
             // Certifications.........................................................................................................................................................................................................................................................................................................................................
@@ -1205,10 +1296,59 @@
                 // add new certificate{ name:"AWS Certified Cloud Practitioner", issuer:"Amazon Web Services", image:"certificates/aws-cloud-practitioner.png", link:"certificates/aws-cloud-practitioner.pdf" }
             ];
 
-            /* Patents: no image, just a title and a link — e.g. the Google Patents page for it. */
+            /* Patents: shown as a status badge (Filed / Filed & Published), title, country + application
+               number, topic tags, and a link to the proof PDF(s) in the Patents/Filed and Patents/Published folders. */
             var PATENTS = [
-                { title: "MediTrack — Smart Automatic Drug Dispenser (Filed)", link: "patents/meditrack-filed-proof.pdf" },
-                { title: "MediTrack — Smart Automatic Drug Dispenser (Published)", link: "patents/meditrack-published-proof.pdf" }
+                {
+                    title: "A Privacy Protection System for Personal Sensitive Information Using Local AI Redaction and Verifiable Credential (VC) Access Control",
+                    status: "filed",
+                    country: "Republic of South Africa",
+                    appNo: "2025/10605",
+                    tags: ["Edge AI", "Privacy", "Computer Vision", "Verifiable Credentials"],
+                    filedLink: "Patents/Filed/1PrivCam(2025 10605).pdf"
+                },
+                {
+                    title: "An Irrigation System for Automated Plant Watering Based on Soil Moisture Conditions",
+                    status: "filed",
+                    country: "Republic of South Africa",
+                    appNo: "2025/10600",
+                    tags: ["IoT", "Soil Sensors", "Automation", "Precision Agriculture"],
+                    filedLink: "Patents/Filed/2AutomaticIrrigation( 2025 10600).pdf"
+                },
+                {
+                    title: "A Machine Learning Based Prescription Scanner with Error Detection System",
+                    status: "filed",
+                    country: "Republic of South Africa",
+                    appNo: "2026/05156",
+                    tags: ["OCR", "NLP", "Healthcare AI", "Drug Interaction Detection"],
+                    filedLink: "Patents/Filed/3MLPrescriptionScanner(2026 05156).pdf"
+                },
+                {
+                    title: "A System for Verifying the Novelty and Potential Patentability of a Conceptual Idea Against a Comprehensive and Unified Database of Global Prior Art",
+                    status: "filed",
+                    country: "Republic of South Africa",
+                    appNo: "2026/04862",
+                    tags: ["NLP", "Semantic Search", "Vector Database", "Patent Analytics"],
+                    filedLink: "Patents/Filed/4IEEEAI(2026 04862).pdf"
+                },
+                {
+                    title: "A Distributed Vehicle-Mounted Vision System for Automated Traffic Violation Detection and Electronic Citation Issuance",
+                    status: "filed",
+                    country: "Republic of South Africa",
+                    appNo: "2026/05164",
+                    tags: ["Computer Vision", "Edge AI", "IoT", "Smart Traffic"],
+                    filedLink: "Patents/Filed/5DT2AutomaticChallan(2026 05164).pdf"
+                },
+                {
+                    title: "A Medication Dispensing Apparatus",
+                    status: "filed_published",
+                    country: "India",
+                    appNo: "202621050945",
+                    journal: "Patent Office Journal No. 25/2026",
+                    tags: ["Computer Vision", "IoT", "Healthcare AI", "Edge AI"],
+                    filedLink: "Patents/Filed/6DT1MedicalDispensor(202621050945).pdf",
+                    publishedLink: "Patents/Published/1A MEDICATION DISPENSING APPARATUS (202621050945).pdf"
+                }
             ];
 
             /* Research papers: no image, just a title and a link — e.g. the IEEE Xplore page for it. */
@@ -1402,19 +1542,27 @@
 
             function renderPatents(list) {
                 var cards = (list && list.length) ? list.map(function (p) {
-                    return '<div class="cert-card">' +
-                        '<div class="cert-body">' +
-                        '<div class="badge">' + ICONS.award + '</div>' +
-                        '<h3>' + escapeHtml(p.title) + '</h3>' +
-                        (p.link ? '<a class="view-link" href="' + escapeHtml(p.link) + '" target="_blank" rel="noopener">' + ICONS.ext + ' View patent</a>' : '') +
-                        '</div>' +
+                    var isPublished = p.status === 'filed_published';
+                    var statusLabel = isPublished ? 'Patent Filed &amp; Published' : 'Patent Filed';
+                    var meta = escapeHtml(p.country) + ' — App. No. ' + escapeHtml(p.appNo);
+                    if (isPublished && p.journal) meta += ' · ' + escapeHtml(p.journal);
+                    var tags = (p.tags || []).map(function (t) { return '<span class="patent-tag">' + escapeHtml(t) + '</span>'; }).join('');
+                    var links = '';
+                    if (p.filedLink) links += '<a href="' + encodeURI(p.filedLink) + '" target="_blank" rel="noopener">' + ICONS.ext + ' View Filed Proof</a>';
+                    if (p.publishedLink) links += '<a href="' + encodeURI(p.publishedLink) + '" target="_blank" rel="noopener">' + ICONS.ext + ' View Published Proof</a>';
+                    return '<div class="patent-card' + (isPublished ? ' is-published' : '') + '">' +
+                        '<div class="patent-status">' + ICONS.filetext + '<span>' + statusLabel + '</span></div>' +
+                        '<h3 class="patent-title">' + escapeHtml(p.title) + '</h3>' +
+                        '<div class="patent-meta">' + meta + '</div>' +
+                        (tags ? '<div class="patent-tags">' + tags + '</div>' : '') +
+                        (links ? '<div class="patent-links">' + links + '</div>' : '') +
                         '</div>';
                 }).join('') : '<div class="empty-note">// no patents added yet — edit the PATENTS array in the code</div>';
 
                 return '<section class="section" id="patents">' +
                     '<div class="eyebrow">Patents</div>' +
-                    '<h2 class="section-title">Filed &amp; <span>Granted</span></h2>' +
-                    '<div class="cert-scroller-wrap"><div class="cert-scroller">' + cards + '</div></div>' +
+                    '<h2 class="section-title">Filed &amp; <span>Published</span></h2>' +
+                    '<div class="patents-grid">' + cards + '</div>' +
                     '</section>';
             }
 
