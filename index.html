@@ -742,7 +742,6 @@
         }
 
         .cert-card {
-            flex: 0 0 280px;
             background: var(--panel);
             border: 1px solid var(--border);
             border-radius: var(--radius);
@@ -993,6 +992,24 @@
         }
 
         /* ---------- projects ---------- */
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        @media (max-width:980px) {
+            .cert-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width:640px) {
+            .cert-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
         .proj-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -1357,9 +1374,9 @@
                 {
                     icon: "filetext",
                     title: "6 Patents Filed",
-                    subtitle: "Republic of South Africa And India",
-                    meta: "2025–2026",
-                    description: ""
+                    subtitle: "Republic of South Africa",
+                    meta: "Healthcare AI & Privacy-Preserving Systems, 2025–2026",
+                    description: "Filed as inventor on two ML/edge-AI patent applications."
                 },
                 {
                     icon: "award",
@@ -1462,8 +1479,8 @@
 
             /* Research papers: no image, just a title and a link — e.g. the IEEE Xplore page for it. */
             var RESEARCH = [
-                { title: "Research Paper (Filed)", link: "Research Paper/meditrack-filed-proof.pdf" },
-                { title: "Research Paper (Published)", link: "Research Paper/meditrack-published-proof.pdf" }
+                { title: "Research Paper (Filed)", link: "ResearchPaper/meditrack-filed-proof.pdf" },
+                { title: "Research Paper (Published)", link: "ResearchPaper/meditrack-published-proof.pdf" }
             ];
 
             // Projects.........................................................................................................................................................................................................................................................................................................................................
@@ -1639,10 +1656,7 @@
                 return '<section class="section" id="certifications">' +
                     '<div class="eyebrow">Certifications</div>' +
                     '<h2 class="section-title">Verified <span>Knowledge</span></h2>' +
-                    '<div class="cert-scroller-wrap">' +
-                    '<div class="cert-scroller" id="cert-scroller">' + cards + '</div>' +
-                    (list && list.length > 2 ? '<div class="scroll-arrows"><button class="scroll-arrow" id="cert-left">&#8249;</button><button class="scroll-arrow" id="cert-right">&#8250;</button></div>' : '') +
-                    '</div>' +
+                    '<div class="cert-grid">' + cards + '</div>' +
                     '</section>';
             }
 
@@ -1686,7 +1700,7 @@
                 return '<section class="section" id="research">' +
                     '<div class="eyebrow">Research</div>' +
                     '<h2 class="section-title">Published <span>Papers</span></h2>' +
-                    '<div class="cert-scroller-wrap"><div class="cert-scroller">' + cards + '</div></div>' +
+                    '<div class="cert-grid">' + cards + '</div>' +
                     '</section>';
             }
 
@@ -1737,12 +1751,6 @@
             }
 
             function bindEvents() {
-                var scroller = document.getElementById('cert-scroller');
-                var left = document.getElementById('cert-left');
-                var right = document.getElementById('cert-right');
-                if (left) left.addEventListener('click', function () { scroller.scrollBy({ left: -300, behavior: 'smooth' }); });
-                if (right) right.addEventListener('click', function () { scroller.scrollBy({ left: 300, behavior: 'smooth' }); });
-
                 var form = document.getElementById('contact-form');
                 if (form) {
                     form.addEventListener('submit', async function (e) {
