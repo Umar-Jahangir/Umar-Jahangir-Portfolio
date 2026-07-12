@@ -843,93 +843,222 @@
             border-color: var(--accent);
         }
 
-        /* ---------- patents ---------- */
-        .patents-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 18px;
+        /* ---------- patents (auto-rotating coverflow) ---------- */
+        .patents-carousel {
+            position: relative;
+            height: 480px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
         }
 
-        @media (max-width:800px) {
-            .patents-grid {
-                grid-template-columns: 1fr;
-            }
+        .pc-track {
+            position: relative;
+            width: 100%;
+            height: 100%;
         }
 
-        .patent-card {
+        .pc-card {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300px;
             background: var(--panel);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 24px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            transition: all .2s ease;
+            gap: 10px;
+            cursor: pointer;
+            transition: transform .6s cubic-bezier(.22, .61, .36, 1), opacity .6s ease, box-shadow .3s ease, border-color .3s ease;
         }
 
-        .patent-card:hover {
-            border-color: rgba(63, 233, 196, 0.4);
-            transform: translateY(-3px);
+        .pc-card.is-active {
+            border-color: var(--accent);
+            box-shadow: 0 25px 60px -18px rgba(63, 233, 196, 0.35), 0 0 0 1px var(--accent);
+            cursor: default;
         }
 
-        .patent-status {
+        .pc-banner {
+            height: 118px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-family: var(--mono);
-            font-size: 11.5px;
-            text-transform: uppercase;
-            letter-spacing: .1em;
-            color: #e0a458;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.9);
+            position: relative;
+            flex-shrink: 0;
         }
 
-        .patent-card.is-published .patent-status {
+        .pc-pill {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(0, 0, 0, 0.55);
+            color: #fff;
+            font-family: var(--mono);
+            font-size: 10px;
+            padding: 4px 9px;
+            border-radius: 999px;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            white-space: nowrap;
+        }
+
+        .pc-dot {
+            position: absolute;
+            top: 13px;
+            right: 13px;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 0 3px rgba(63, 233, 196, 0.25);
+        }
+
+        .pc-card.is-filed-only .pc-dot {
+            background: #e0a458;
+            box-shadow: 0 0 0 3px rgba(224, 164, 88, 0.25);
+        }
+
+        .pc-banner svg {
+            width: 34px;
+            height: 34px;
+            opacity: .85;
+        }
+
+        .pc-card h3 {
+            font-family: var(--display);
+            font-size: 15px;
+            line-height: 1.35;
+            margin: 0;
+            color: var(--text);
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .pc-card.is-active h3 {
             color: var(--accent);
         }
 
-        .patent-title {
-            font-family: var(--display);
-            font-size: 17px;
-            line-height: 1.4;
-            margin: 0;
+        .pc-meta {
+            font-family: var(--mono);
+            font-size: 11.5px;
+            color: var(--text-faint);
         }
 
-        .patent-meta {
-            color: var(--text-dim);
-            font-size: 13px;
-        }
-
-        .patent-tags {
+        .pc-tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 6px;
         }
 
-        .patent-tag {
+        .pc-tag {
             font-family: var(--mono);
-            font-size: 12px;
-            padding: 5px 11px;
-            border-radius: 7px;
+            font-size: 10.5px;
+            padding: 3px 8px;
+            border-radius: 6px;
             background: var(--panel-2);
             border: 1px solid var(--border);
             color: var(--text-dim);
         }
 
-        .patent-links {
-            display: flex;
-            gap: 18px;
-            flex-wrap: wrap;
+        .pc-links {
             margin-top: auto;
+            display: flex;
+            gap: 8px;
             padding-top: 4px;
         }
 
-        .patent-links a {
-            font-family: var(--mono);
-            font-size: 12.5px;
-            color: var(--accent);
+        .pc-links a {
+            flex: 1;
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 6px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 8px 6px;
+            font-family: var(--mono);
+            font-size: 11px;
+            color: var(--text-dim);
+        }
+
+        .pc-links a:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .pc-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: rgba(15, 22, 38, 0.9);
+            border: 1px solid var(--border);
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 60;
+        }
+
+        .pc-arrow:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .pc-arrow-left {
+            left: 0;
+        }
+
+        .pc-arrow-right {
+            right: 0;
+        }
+
+        @media (max-width:700px) {
+            .pc-arrow-left {
+                left: -6px;
+            }
+
+            .pc-arrow-right {
+                right: -6px;
+            }
+
+            .pc-card {
+                width: 250px;
+            }
+        }
+
+        .pc-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 26px;
+        }
+
+        .pc-dots button {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--border);
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            transition: all .25s ease;
+        }
+
+        .pc-dots button.is-active {
+            background: var(--accent);
+            width: 22px;
+            border-radius: 5px;
         }
 
         /* ---------- achievements ---------- */
@@ -1377,14 +1506,12 @@
                 ext: '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>',
                 trophy: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8"></path><path d="M12 17v4"></path><path d="M7 4h10v5a5 5 0 0 1-10 0V4z"></path><path d="M7 5H4a1 1 0 0 0-1 1v1a4 4 0 0 0 4 4"></path><path d="M17 5h3a1 1 0 0 1 1 1v1a4 4 0 0 1-4 4"></path></svg>',
                 filetext: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><line x1="10" y1="9" x2="8" y2="9"></line></svg>',
-                target: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>'
+                target: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>',
+                eye: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>',
+                chevronLeft: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>',
+                chevronRight: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>'
             };
 
-
-            /* =====================================================================
-               YOUR CONTENT — edit these arrays directly whenever you want to change
-               what shows up on the site. No admin panel, no database: this IS the data.
-               ===================================================================== */
 
             var CONTACT = {
                 email: "umarjahangir39@gmail.com",
@@ -1849,29 +1976,120 @@
                     '</section>';
             }
 
+            var PATENT_GRADIENTS = [
+                'linear-gradient(135deg,#1a2980,#26d0ce)',
+                'linear-gradient(135deg,#232526,#414345)',
+                'linear-gradient(135deg,#0f2027,#2c5364)',
+                'linear-gradient(135deg,#3a1c71,#d76d77)',
+                'linear-gradient(135deg,#134e5e,#71b280)',
+                'linear-gradient(135deg,#0f0c29,#302b63)'
+            ];
+
+            function initPatentsCarousel() {
+                var track = document.getElementById('pc-track');
+                if (!track) return;
+                var cards = Array.prototype.slice.call(track.querySelectorAll('.pc-card'));
+                var dotsWrap = document.getElementById('pc-dots');
+                var dots = dotsWrap ? Array.prototype.slice.call(dotsWrap.querySelectorAll('button')) : [];
+                var n = cards.length;
+                if (!n) return;
+                var active = 0;
+                var timer = null;
+
+                function layout() {
+                    cards.forEach(function (card, i) {
+                        var offset = i - active;
+                        if (offset > n / 2) offset -= n;
+                        if (offset < -n / 2) offset += n;
+                        var abs = Math.abs(offset);
+                        var visible = abs <= 2;
+                        var x = offset * 235;
+                        var scale = Math.max(1 - abs * 0.14, 0.68);
+                        var rotate = offset * -6;
+                        card.style.transform = 'translate(-50%,-50%) translateX(' + x + 'px) scale(' + scale + ') rotateY(' + rotate + 'deg)';
+                        card.style.opacity = visible ? (1 - abs * 0.32) : 0;
+                        card.style.zIndex = 100 - abs;
+                        card.style.pointerEvents = visible ? 'auto' : 'none';
+                        card.classList.toggle('is-active', offset === 0);
+                    });
+                    dots.forEach(function (d, i) { d.classList.toggle('is-active', i === active); });
+                }
+
+                function goTo(i) {
+                    active = ((i % n) + n) % n;
+                    layout();
+                }
+
+                function next() { goTo(active + 1); }
+                function prev() { goTo(active - 1); }
+
+                function startAuto() {
+                    stopAuto();
+                    timer = setInterval(next, 3500);
+                }
+                function stopAuto() {
+                    if (timer) clearInterval(timer);
+                    timer = null;
+                }
+
+                var prevBtn = document.getElementById('pc-prev');
+                var nextBtn = document.getElementById('pc-next');
+                if (prevBtn) prevBtn.addEventListener('click', function () { prev(); startAuto(); });
+                if (nextBtn) nextBtn.addEventListener('click', function () { next(); startAuto(); });
+                dots.forEach(function (d, i) { d.addEventListener('click', function () { goTo(i); startAuto(); }); });
+                cards.forEach(function (card, i) {
+                    card.addEventListener('click', function (e) {
+                        if (i !== active) { goTo(i); startAuto(); }
+                    });
+                });
+
+                var carousel = document.getElementById('patents-carousel');
+                if (carousel) {
+                    carousel.addEventListener('mouseenter', stopAuto);
+                    carousel.addEventListener('mouseleave', startAuto);
+                }
+
+                layout();
+                startAuto();
+            }
+
             function renderPatents(list) {
-                var cards = (list && list.length) ? list.map(function (p) {
+                var n = (list || []).length;
+                var cards = (list || []).map(function (p, i) {
                     var isPublished = p.status === 'filed_published';
-                    var statusLabel = isPublished ? 'Patent Filed &amp; Published' : 'Patent Filed';
+                    var statusLabel = isPublished ? 'Filed & Published' : 'Filed';
                     var meta = escapeHtml(p.country) + ' — App. No. ' + escapeHtml(p.appNo);
-                    if (isPublished && p.journal) meta += ' · ' + escapeHtml(p.journal);
-                    var tags = (p.tags || []).map(function (t) { return '<span class="patent-tag">' + escapeHtml(t) + '</span>'; }).join('');
+                    var tags = (p.tags || []).slice(0, 3).map(function (t) { return '<span class="pc-tag">' + escapeHtml(t) + '</span>'; }).join('');
                     var links = '';
-                    if (p.filedLink) links += '<a href="' + encodeURI(p.filedLink) + '" target="_blank" rel="noopener">' + ICONS.ext + ' View Filed Proof</a>';
-                    if (p.publishedLink) links += '<a href="' + encodeURI(p.publishedLink) + '" target="_blank" rel="noopener">' + ICONS.ext + ' View Published Proof</a>';
-                    return '<div class="patent-card' + (isPublished ? ' is-published' : '') + '">' +
-                        '<div class="patent-status">' + ICONS.filetext + '<span>' + statusLabel + '</span></div>' +
-                        '<h3 class="patent-title">' + escapeHtml(p.title) + '</h3>' +
-                        '<div class="patent-meta">' + meta + '</div>' +
-                        (tags ? '<div class="patent-tags">' + tags + '</div>' : '') +
-                        (links ? '<div class="patent-links">' + links + '</div>' : '') +
+                    if (p.filedLink) links += '<a href="' + encodeURI(p.filedLink) + '" target="_blank" rel="noopener">' + ICONS.eye + ' Filed</a>';
+                    if (p.publishedLink) links += '<a href="' + encodeURI(p.publishedLink) + '" target="_blank" rel="noopener">' + ICONS.ext + ' Published</a>';
+                    var gradient = PATENT_GRADIENTS[i % PATENT_GRADIENTS.length];
+                    return '<div class="pc-card' + (isPublished ? '' : ' is-filed-only') + '" data-index="' + i + '">' +
+                        '<div class="pc-banner" style="background:' + gradient + '">' +
+                        '<div class="pc-pill">' + statusLabel + '</div>' +
+                        '<div class="pc-dot"></div>' +
+                        ICONS.filetext +
+                        '</div>' +
+                        '<h3>' + escapeHtml(p.title) + '</h3>' +
+                        '<div class="pc-meta">' + meta + '</div>' +
+                        (tags ? '<div class="pc-tags">' + tags + '</div>' : '') +
+                        (links ? '<div class="pc-links">' + links + '</div>' : '') +
                         '</div>';
-                }).join('') : '<div class="empty-note">// no patents added yet — edit the PATENTS array in the code</div>';
+                }).join('');
+
+                var dots = (list || []).map(function (_, i) { return '<button data-i="' + i + '" aria-label="Go to patent ' + (i + 1) + '"></button>'; }).join('');
+
+                if (!n) return '<section class="section" id="patents"><div class="eyebrow">Patents</div><h2 class="section-title">Filed &amp; <span>Published</span></h2><div class="empty-note">// no patents added yet — edit the PATENTS array in the code</div></section>';
 
                 return '<section class="section" id="patents">' +
                     '<div class="eyebrow">Patents</div>' +
                     '<h2 class="section-title">Filed &amp; <span>Published</span></h2>' +
-                    '<div class="patents-grid">' + cards + '</div>' +
+                    '<div class="patents-carousel" id="patents-carousel">' +
+                    '<button class="pc-arrow pc-arrow-left" id="pc-prev" aria-label="Previous patent">' + ICONS.chevronLeft + '</button>' +
+                    '<div class="pc-track" id="pc-track">' + cards + '</div>' +
+                    '<button class="pc-arrow pc-arrow-right" id="pc-next" aria-label="Next patent">' + ICONS.chevronRight + '</button>' +
+                    '</div>' +
+                    '<div class="pc-dots" id="pc-dots">' + dots + '</div>' +
                     '</section>';
             }
 
@@ -1947,6 +2165,8 @@
             }
 
             function bindEvents() {
+                initPatentsCarousel();
+
                 var form = document.getElementById('contact-form');
                 if (form) {
                     form.addEventListener('submit', async function (e) {
