@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
 <html>
 
@@ -526,6 +529,30 @@
         }
 
         /* ---------- experience timeline ---------- */
+        .exp-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+        }
+
+        @media (max-width:800px) {
+            .exp-columns {
+                grid-template-columns: 1fr;
+                gap: 36px;
+            }
+        }
+
+        .col-label {
+            font-family: var(--mono);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            color: var(--text-faint);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+
         .timeline {
             position: relative;
             padding-left: 28px;
@@ -1397,6 +1424,14 @@
                 { position: "Software Development Engineer (Industrial Project)", company: "Yantriki Soft", duration: "Feb 2025 – Jun 2025", location: "Pune, India" }
             ];
 
+            /* Extracurricular / campus leadership roles — shown as a second column next to Experience. */
+            var EXTRACURRICULAR = [
+                { position: "Technical Coordinator", company: "Abhivriddhi — Student Training and Development Cell", duration: "2024–25", location: "Vishwakarma Institute of Technology, Pune" },
+                { position: "Database Coordinator", company: "VEDC", duration: "2024–25", location: "Vishwakarma Institute of Technology, Pune" },
+                { position: "Blockchain Coordinator", company: "SIG Reality Spectra", duration: "2024–25", location: "Vishwakarma Institute of Technology, Pune" },
+                { position: "Technical Joint Head", company: "VICSTA", duration: "2024–25", location: "Vishwakarma Institute of Technology, Pune" }
+            ];
+
             // Skills.........................................................................................................................................................................................................................................................................................................................................
             var SKILLS = [
                 { name: "Python", category: "Languages", icon: "python" }, { name: "Java", category: "Languages", icon: "java" },
@@ -1626,7 +1661,7 @@
                 { name: "GitGrade — AI Coding Mentor", githubLink: "https://github.com/Umar-Jahangir", description: "Evaluates public GitHub repos to generate a performance score, summary, and personalised improvement roadmap.", tags: ["LLM", "GitHub API"] },
                 { name: "Student-Pal — Python Productivity Suite", githubLink: "https://github.com/Umar-Jahangir", description: "AI Flashcard Generator, MCQ Generator, CGPA Calculator, and Physics Solver built with Python and Streamlit.", tags: ["Python", "Streamlit"] }
             ];
-
+            
             /* =====================================================================
                everything below this line is rendering logic — no need to touch it
                ===================================================================== */
@@ -1647,7 +1682,7 @@
                 var html = '';
                 html += renderHero();
                 html += renderEducation(EDUCATION);
-                html += renderExperience(EXPERIENCE);
+                html += renderExperience(EXPERIENCE, EXTRACURRICULAR);
                 html += renderSkills(SKILLS);
                 html += renderAchievements(ACHIEVEMENTS);
                 html += renderCertifications(CERTIFICATIONS);
@@ -1711,19 +1746,27 @@
                     '</section>';
             }
 
-            function renderExperience(list) {
-                var items = (list && list.length) ? list.map(function (x) {
+            function renderTimelineItems(list, emptyMsg) {
+                return (list && list.length) ? list.map(function (x) {
                     return '<div class="tl-item">' +
                         '<h3>' + escapeHtml(x.position) + '</h3>' +
                         '<div class="company">' + escapeHtml(x.company) + '</div>' +
                         '<div class="meta">' + escapeHtml(x.duration) + (x.location ? ' · ' + escapeHtml(x.location) : '') + '</div>' +
                         '</div>';
-                }).join('') : '<div class="empty-note">// no experience entries yet</div>';
+                }).join('') : '<div class="empty-note">' + emptyMsg + '</div>';
+            }
+
+            function renderExperience(expList, extraList) {
+                var expItems = renderTimelineItems(expList, '// no experience entries yet');
+                var extraItems = renderTimelineItems(extraList, '// no extracurricular entries yet');
 
                 return '<section class="section" id="experience">' +
                     '<div class="eyebrow">Experience</div>' +
                     '<h2 class="section-title">Where I\'ve <span>Worked</span></h2>' +
-                    '<div class="timeline">' + items + '</div>' +
+                    '<div class="exp-columns">' +
+                    '<div class="exp-col"><div class="col-label">Professional Experience</div><div class="timeline">' + expItems + '</div></div>' +
+                    '<div class="exp-col"><div class="col-label">Extracurricular Activities</div><div class="timeline">' + extraItems + '</div></div>' +
+                    '</div>' +
                     '</section>';
             }
 
