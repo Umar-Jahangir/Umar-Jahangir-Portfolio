@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Umar Jahangir</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
@@ -203,6 +204,12 @@
             padding: 96px 24px;
         }
 
+        @media (max-width:640px) {
+            .section {
+                padding: 56px 18px;
+            }
+        }
+
         .eyebrow {
             font-family: var(--mono);
             font-size: 12.5px;
@@ -242,6 +249,14 @@
             min-height: 88vh;
             display: flex;
             align-items: center;
+        }
+
+        @media (max-width:640px) {
+            .hero {
+                padding-top: 40px;
+                padding-bottom: 48px;
+                min-height: auto;
+            }
         }
 
         .hero-grid {
